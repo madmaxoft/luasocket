@@ -72,7 +72,31 @@ foreach(LuaFile IN LISTS LUAMODULES LUASOCKETMODULES)
 	list(APPEND GenLuaFiles ${outfile})
 endforeach()
 
-add_library(luasocket STATIC
+
+
+
+# Static library:
+add_library(luasocket-static STATIC
+	${SRCS}
+	${GenLuaFiles}
+)
+
+target_link_libraries(luasocket-static
+	lua-static
+)
+
+if(WIN32)
+	target_link_libraries(luasocket-static
+		ws2_32
+	)
+endif()
+
+
+
+
+
+# Dynamic library:
+add_library(luasocket SHARED
 	${SRCS}
 	${GenLuaFiles}
 )
