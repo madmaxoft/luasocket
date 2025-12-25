@@ -85,6 +85,11 @@ target_link_libraries(luasocket-static
 	lua-static
 )
 
+# Allow whoever uses this library to also include its header files:
+target_include_directories(luasocket-static INTERFACE
+	${CMAKE_CURRENT_LIST_DIR}/src
+)
+
 if(WIN32)
 	target_link_libraries(luasocket-static
 		ws2_32
